@@ -4,7 +4,7 @@ from api.schemas.author import AuthorSchema, authors_schema, author_schema
 
 
 class AuthorResource(Resource):
-    #          ma       flask
+    #         ma        flask
     # Object ----> dict ----> JSON
     def get(self, author_id=None):  # Если запрос приходит по url: /authors
         if author_id is None:
