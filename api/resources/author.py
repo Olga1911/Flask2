@@ -20,7 +20,7 @@ class AuthorResource(Resource):
         if author is None:
             return f"Author id={author_id} not found", 404
 
-        return author.to_dict(), 200
+        return author_schema.dump(author), 200
 
     def post(self):
         parser = reqparse.RequestParser()
@@ -41,7 +41,7 @@ class AuthorResource(Resource):
             return {"Error": f"Author id={author_id} not found"}, 404
         author.name = author_data["name"]
         db.session.commit()
-        return author.to_dict(), 200
+        return author_schema.dump(author), 200
 
     def delete(self, author_id):
         author = AuthorModel.query.get(author_id)
