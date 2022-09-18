@@ -1,5 +1,6 @@
-from passlib.apps import custom_app_context as pwd_context
 from api import db
+from passlib.apps import custom_app_context as pwd_context
+
 
 class UserModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)

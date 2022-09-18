@@ -4,15 +4,14 @@ from api.schemas.author import AuthorSchema, authors_schema, author_schema
 
 
 class AuthorResource(Resource):
-    #         ma        flask
+    #          ma       flask
     # Object ----> dict ----> JSON
     def get(self, author_id=None):  # Если запрос приходит по url: /authors
         if author_id is None:
             authors = AuthorModel.query.all()
-            # еще один вариант сериализации: return AuthorSchema(many=True).dump(authors)
+            # return AuthorSchema(many=True).dump(authors)
             return authors_schema.dump(authors)
-            # authors_list = [author.to_dict()
-            # for author in authors]
+            # authors_list = [author.to_dict() for author in authors]
             # return authors_list, 200
 
         # Если запрос приходит по url: /authors/<int:author_id>
@@ -41,7 +40,7 @@ class AuthorResource(Resource):
             return {"Error": f"Author id={author_id} not found"}, 404
         author.name = author_data["name"]
         db.session.commit()
-        return author_schema.dump(author), 200
+        return author.to_dict(), 200
 
     def delete(self, author_id):
         author = AuthorModel.query.get(author_id)
