@@ -1,7 +1,8 @@
 from api import Resource, reqparse, db
 from api.models.author import AuthorModel
 from api.schemas.author import AuthorSchema, authors_schema, author_schema
-
+from flask import g
+from api import  auth
 
 class AuthorResource(Resource):
     #          ma       flask
@@ -21,6 +22,7 @@ class AuthorResource(Resource):
 
         return author_schema.dump(author), 200
 
+    @auth.login_required
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument("name", required=True)
